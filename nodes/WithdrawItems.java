@@ -71,6 +71,11 @@ public class WithdrawItems extends Node {
     }
 
     @Override
+    public String toString(){
+        return "Withdrawing items...";
+    }
+
+    @Override
     public boolean validate() {
         return Inventory.getCount(vars.foodId) <= 0;
     }

@@ -62,6 +62,11 @@ public class DepositItems extends Node {
     }
 
     @Override
+    public String toString(){
+        return "Depositing items...";
+    }
+
+    @Override
     public boolean validate() {
             return Inventory.isFull() && Inventory.getCount(vars.foodId) <= 0;
     }

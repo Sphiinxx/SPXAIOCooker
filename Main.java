@@ -41,6 +41,7 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
         while (!variables.stopScript) {
             for (final Node node : nodes) {
                 if (node.validate()) {
+                    variables.status = node.toString();
                     node.execute();
                     General.sleep(min, max);
                 }

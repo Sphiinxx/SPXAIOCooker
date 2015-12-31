@@ -114,6 +114,11 @@ public class CookFood extends Node {
     }
 
     @Override
+    public String toString(){
+        return "Cooking food...";
+    }
+
+    @Override
     public boolean validate() {
         return Inventory.getCount(vars.foodId) > 0;
     }
