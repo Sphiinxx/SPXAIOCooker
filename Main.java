@@ -19,7 +19,7 @@ import java.util.Collections;
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-@ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "SPX AIO Cooker", version = 0.2)
+@ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 0.2)
 public class Main extends Script implements Painting, MessageListening07 {
 
     private Variables variables = new Variables();

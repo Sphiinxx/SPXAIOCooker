@@ -46,7 +46,7 @@ public class GUI extends javax.swing.JFrame {
         start = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jLabel1.setText("SPX AIO COOKER");
+        jLabel1.setText("[SPX] AIO COOKER");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 15))); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(12, 165));
