@@ -26,10 +26,6 @@ public class Variables {
     public final int cookingAnimation = 897;
     public long lastCookingTime = Timing.currentTimeMillis();
     public int currentLvl;
-    public int gainedLvl;
-    public int gainedXP;
-    public long timeRan;
-    public long xpPerHour;
 
 }
 

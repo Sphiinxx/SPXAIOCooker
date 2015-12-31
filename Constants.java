@@ -36,21 +36,13 @@ public class Constants {
             new RSTile(3049, 4964, 1),
             new RSTile(3049, 4978, 1)
     });
-    public static final Color color1 = new Color(0, 169, 194);
-    public static final Color color2 = new Color(255, 255, 255);
-    public static final Font font1 = new Font("Segoe Script", 0, 20);
-    public static final Font font2 = new Font("Arial", 0, 15);
-    public static final Image img1 = getImage("http://i.imgur.com/fRrLAWr.png");
-    public static final RenderingHints antialiasing = new RenderingHints(
+    public static final long START_TIME = System.currentTimeMillis();
+    public static final Color RED_COLOR = new Color(214, 39, 39, 240);
+    public static final Color BLACK_COLOR = new Color(0, 0, 0, 100);
+    public static final Font TITLE_FONT = new Font("Arial Bold", 0, 15);
+    public static final Font TEXT_FONT = new Font("Arial", 0, 12);
+    public static final RenderingHints ANTIALIASING = new RenderingHints(
             RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-    public static Image getImage(String url) {
-        try {
-            return ImageIO.read(new URL(url));
-        } catch (IOException e) {
-            return null;
-        }
-    }
 
 }
 
