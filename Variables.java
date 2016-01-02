@@ -22,7 +22,6 @@ public class Variables {
     public int totalCookedCount = cookedCount + burnedCount;
     public final int startLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
     public final int startXP = Skills.getXP(Skills.SKILLS.COOKING);
-    public final long startTime = System.currentTimeMillis();
     public final int cookingAnimation = 897;
     public long lastCookingTime = Timing.currentTimeMillis();
     public int currentLvl;

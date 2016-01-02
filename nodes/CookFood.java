@@ -7,6 +7,7 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSInterfaceChild;
 import org.tribot.api2007.types.RSItem;
 import org.tribot.api2007.types.RSObject;
+import org.tribot.api2007.types.RSTile;
 import scripts.SPXAIOCooker.Variables;
 import scripts.SPXAIOCooker.api.Node;
 
@@ -32,17 +33,30 @@ public class CookFood extends Node {
         food = Inventory.find(vars.foodId);
         upText = Game.getUptext();
         cookingInterface = Interfaces.get(307, 3);
-        if (stove.length > 0) {
-            if (!stove[0].isOnScreen()) {
-                WebWalking.walkTo(stove[0]);
-            } else {
-                cookFoodOnStove();
+        if (Banking.isBankScreenOpen()) {
+            if (Banking.close()) {
+                Timing.waitCondition(new Condition() {
+                    @Override
+                    public boolean active() {
+                        General.sleep(100);
+                        return !Banking.isBankScreenOpen();
+                    }
+                }, General.random(750, 1000));
             }
-        } else if (fire.length > 0) {
-            if (!fire[0].isOnScreen()) {
-                WebWalking.walkTo(fire[0]);
-            } else {
-                cookFoodOnFire();
+        } else {
+            if (stove.length > 0) {
+                if (!stove[0].isOnScreen()) {
+                    WebWalking.walkTo(stove[0]);
+                } else {
+                    cookFoodOnStove();
+                }
+            } else if (fire.length > 0) {
+                if (!fire[0].isOnScreen()) {
+                    WebWalking.walkTo(fire[0]);
+                    Walking.walkTo(fire[0]);
+                } else {
+                    cookFoodOnFire();
+                }
             }
         }
     }
@@ -51,34 +65,38 @@ public class CookFood extends Node {
         if (Player.getAnimation() == vars.cookingAnimation) {
             vars.lastCookingTime = Timing.currentTimeMillis();
         } else if (Timing.timeFromMark(vars.lastCookingTime) > 3000) {
-             if (upText != null && upText.contains("Use Raw") && Player.getAnimation() == -1) {
+            if (upText != null && upText.contains("Use Raw") && Player.getAnimation() == -1) {
                 if (fire[0].click()) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
+                            General.sleep(100);
                             return cookingInterface != null && !cookingInterface.isHidden(true);
                         }
-                    }, General.random(1200, 1500));
+                    }, General.random(2500, 3000));
                 }
             } else if (cookingInterface != null && !cookingInterface.isHidden(true)) {
                 if (cookingInterface.click("Cook All")) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
+                            General.sleep(100);
                             return Player.getAnimation() == vars.cookingAnimation;
                         }
                     }, General.random(750, 1000));
                 }
             } else if (Player.getAnimation() == -1) {
-                 if (food[0].click("Use")) {
-                     Timing.waitCondition(new Condition() {
-                         @Override
-                         public boolean active() {
-                             return upText.contains("Use Raw");
-                         }
-                     }, General.random(750, 1000));
-                 }
-             }
+                if (food[0].click("Use")) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            General.sleep(100);
+                            return upText.contains("Use Raw");
+                        }
+                    }, General.random(750, 1000));
+                }
+            }
+
         }
     }
 
@@ -88,15 +106,17 @@ public class CookFood extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return cookingInterface != null && !cookingInterface.isHidden(true);
                     }
-                }, General.random(1200, 1500));
+                }, General.random(2500, 3000));
             }
         } else if (cookingInterface != null && !cookingInterface.isHidden(true)) {
             if (cookingInterface.click("Cook All")) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Player.getAnimation() != -1;
                     }
                 }, General.random(750, 1000));
@@ -106,6 +126,7 @@ public class CookFood extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return upText.contains("Use Raw");
                     }
                 }, General.random(750, 1000));
@@ -114,7 +135,7 @@ public class CookFood extends Node {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Cooking food...";
     }
 

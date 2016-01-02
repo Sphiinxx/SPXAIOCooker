@@ -76,7 +76,7 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
             variables.currentLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
             int gainedLvl = variables.currentLvl - variables.startLvl;
             int gainedXP = Skills.getXP(Skills.SKILLS.COOKING) - variables.startXP;
-            long timeRan = System.currentTimeMillis() - variables.startTime;
+            long timeRan = System.currentTimeMillis() - Constants.START_TIME;
             long xpPerHour = (long) (gainedXP * 3600000D / timeRan);
 
             g.setColor(Constants.BLACK_COLOR);

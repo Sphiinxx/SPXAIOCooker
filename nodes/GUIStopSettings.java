@@ -34,6 +34,7 @@ public class GUIStopSettings extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Login.getLoginState() == Login.STATE.LOGINSCREEN;
                 }
             }, General.random(1000, 1500));

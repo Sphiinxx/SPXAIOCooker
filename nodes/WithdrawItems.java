@@ -33,10 +33,11 @@ public class WithdrawItems extends Node {
 
     public void withdrawItems() {
         if (Banking.find(vars.foodId).length > 0) {
-            if (Banking.withdraw(28, vars.foodId)) {
+            if (Banking.withdraw(0, vars.foodId)) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Inventory.getCount(vars.foodId) == 28;
                     }
                 }, General.random(750, 1000));
@@ -53,6 +54,7 @@ public class WithdrawItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Banking.isBankScreenOpen();
                 }
             }, General.random(750, 1000));
@@ -64,6 +66,7 @@ public class WithdrawItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Banking.isInBank();
                 }
             }, General.random(750, 1000));

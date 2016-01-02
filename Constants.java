@@ -13,10 +13,10 @@ import java.net.URL;
  */
 public class Constants {
     public static final RSArea FALADOR_AREA = new RSArea(new RSTile[]{
-            new RSTile(3024, 3348, 0),
-            new RSTile(3024, 3383, 0),
-            new RSTile(2981, 3383, 0),
-            new RSTile(2981, 3348, 0)
+            new RSTile(3024, 3351, 0),
+            new RSTile(3026, 3383, 0),
+            new RSTile(2978, 3375, 0),
+            new RSTile(2978, 3351, 0)
     });
     public static final RSArea CATHERBY_AREA = new RSArea(new RSTile[]{
             new RSTile(2794, 3459, 0),
