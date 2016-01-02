@@ -32,7 +32,7 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
     @Override
     public void run() {
         initializeGui();
-        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFood(variables));
+        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }

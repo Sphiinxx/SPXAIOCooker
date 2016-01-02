@@ -2,6 +2,9 @@ package scripts.SPXAIOCooker;
 
 import org.tribot.api.Timing;
 import org.tribot.api2007.Skills;
+import org.tribot.api2007.types.RSInterfaceChild;
+import org.tribot.api2007.types.RSItem;
+import org.tribot.api2007.types.RSObject;
 
 /**
  * Created by Sphiinx on 12/26/2015.
@@ -25,6 +28,11 @@ public class Variables {
     public final int cookingAnimation = 897;
     public long lastCookingTime = Timing.currentTimeMillis();
     public int currentLvl;
+    public RSObject[] stove;
+    public RSObject[] fire;
+    public RSItem[] food;
+    public String upText;
+    public RSInterfaceChild cookingInterface;
 
 }
 
