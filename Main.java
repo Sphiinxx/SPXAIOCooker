@@ -31,6 +31,7 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
 
     @Override
     public void run() {
+        getStartInformation();
         initializeGui();
         Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
@@ -65,6 +66,11 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
         do
             sleep(10);
         while (!variables.guiComplete);
+    }
+
+    private void getStartInformation() {
+        variables.startXP = Skills.getXP(Skills.SKILLS.COOKING);
+        variables.startLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
     }
 
     public void onPaint(Graphics g1) {
