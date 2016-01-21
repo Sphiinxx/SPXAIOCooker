@@ -1,11 +1,13 @@
-package scripts.SPXAIOCooker.nodes;
+package scripts.SPXAIOCooker.nodes.CookFood;
 
+import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
-import scripts.SPXAIOCooker.Variables;
-import scripts.SPXAIOCooker.api.Node;
+import org.tribot.api2007.types.RSObject;
+import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.data.Variables;
 
 /**
  * Created by Sphiinx on 1/2/2016.
@@ -33,7 +35,7 @@ public class CookFoodOnStove extends Node {
                         General.sleep(100);
                         return vars.cookingInterface != null && !vars.cookingInterface.isHidden(true);
                     }
-                }, General.random(2500, 3000));
+                }, General.random(2800, 3000));
             }
         } else if (vars.cookingInterface != null && !vars.cookingInterface.isHidden(true)) {
             if (vars.cookingInterface.click("Cook All")) {
@@ -66,7 +68,7 @@ public class CookFoodOnStove extends Node {
     @Override
     public boolean validate() {
         vars.stove = Objects.findNearest(25, "Range");
-        return vars.stove.length > 0 && vars.stove[0].isOnScreen() && Inventory.getCount(vars.foodId) > 0;
+        return !vars.makeWine && vars.stove.length > 0 && vars.stove[0].isOnScreen() && Inventory.getCount(vars.foodId) > 0;
     }
 
 }

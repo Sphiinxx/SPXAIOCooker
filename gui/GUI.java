@@ -1,7 +1,8 @@
-package scripts.SPXAIOCooker;
+package scripts.SPXAIOCooker.gui;
 
 import org.tribot.api.General;
-import org.tribot.api2007.Player;
+import scripts.SPXAIOCooker.data.Location;
+import scripts.SPXAIOCooker.data.Variables;
 
 import javax.swing.*;
 
@@ -42,7 +43,6 @@ public class GUI extends javax.swing.JFrame {
         location = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         makeWine = new javax.swing.JCheckBox();
-        makeWine.setEnabled(false);
         start = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
@@ -63,11 +63,11 @@ public class GUI extends javax.swing.JFrame {
 
         amoutBeforeStopping.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
-        location.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Catherby", "Al Kharid", "Falador", "Rogues Den"}));
+        location.setModel(new javax.swing.DefaultComboBoxModel<>(Location.values()));
 
         jLabel6.setText("Make Wine instead of cooking:");
 
-        makeWine.setText("Temporarily Disabled");
+        makeWine.setText("Yes");
         makeWine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 makeWineActionPerformed(evt);
@@ -92,7 +92,7 @@ public class GUI extends javax.swing.JFrame {
                                         .addComponent(amoutBeforeStopping)
                                         .addComponent(foodType)
                                         .addComponent(location, 0, 1, Short.MAX_VALUE)
-                                        .addComponent(makeWine, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                                        .addComponent(makeWine, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -178,41 +178,7 @@ public class GUI extends javax.swing.JFrame {
         if (makeWine.isSelected()) {
             variables.makeWine = true;
         } else {
-            variables.location = location.getSelectedItem().toString();
-            switch (location.getSelectedItem().toString()) {
-                case "Catherby":
-                    printGuiInformation();
-                    if (!Constants.CATHERBY_AREA.contains(Player.getPosition())) {
-                        General.println("Please start the script at the " + variables.location + " Bank.");
-                        General.println("Stopping Script...");
-                        variables.stopScript = true;
-                    }
-                    break;
-                case "Al Kharid":
-                    printGuiInformation();
-                    if (!Constants.ALKHARID_AREA.contains(Player.getPosition())) {
-                        General.println("Please start the script at the " + variables.location + "Bank.");
-                        General.println("Stopping Script...");
-                        variables.stopScript = true;
-                    }
-                    break;
-                case "Falador":
-                    printGuiInformation();
-                    if (!Constants.FALADOR_AREA.contains(Player.getPosition())) {
-                        General.println("Please start the script at the " + variables.location + "Bank.");
-                        General.println("Stopping Script...");
-                        variables.stopScript = true;
-                    }
-                    break;
-                case "Rouges Den":
-                    printGuiInformation();
-                    if (!Constants.ROUGES_DEN_AREA.contains(Player.getPosition())) {
-                        General.println("Please start the script at the " + variables.location + "Bank.");
-                        General.println("Stopping Script...");
-                        variables.stopScript = true;
-                    }
-                    break;
-            }
+            variables.location = (Location)location.getSelectedItem();
         }
         variables.guiComplete = true;
         setVisible(false);

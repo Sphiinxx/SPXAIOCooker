@@ -1,7 +1,6 @@
-package scripts.SPXAIOCooker;
+package scripts.SPXAIOCooker.data;
 
 import org.tribot.api.Timing;
-import org.tribot.api2007.Skills;
 import org.tribot.api2007.types.RSInterfaceChild;
 import org.tribot.api2007.types.RSItem;
 import org.tribot.api2007.types.RSObject;
@@ -16,7 +15,6 @@ public class Variables {
     public boolean makeWine;
     public String status;
     public String foodId;
-    public String location;
     public double version;
     public int amountToStop;
     public int levelToStop;
@@ -33,6 +31,7 @@ public class Variables {
     public RSItem[] food;
     public String upText;
     public RSInterfaceChild cookingInterface;
+    public Location location;
 
 }
 

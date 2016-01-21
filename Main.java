@@ -11,8 +11,13 @@ import org.tribot.script.interfaces.MessageListening07;
 import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
-import scripts.SPXAIOCooker.api.Node;
-import scripts.SPXAIOCooker.nodes.*;
+import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.data.Constants;
+import scripts.SPXAIOCooker.data.Variables;
+import scripts.SPXAIOCooker.gui.GUI;
+import scripts.SPXAIOCooker.nodes.CookFood.*;
+import scripts.SPXAIOCooker.nodes.MakeWine.BankHandler;
+import scripts.SPXAIOCooker.nodes.MakeWine.CombineItems;
 
 
 import java.awt.*;
@@ -22,8 +27,8 @@ import java.util.Collections;
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-@ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 0.2)
-public class Main extends Script implements Painting, MessageListening07, MousePainting, MouseSplinePainting {
+@ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 0.4)
+public class Main extends Script implements Painting, MessageListening07 {
 
     private Variables variables = new Variables();
     private ArrayList<Node> nodes = new ArrayList<>();
@@ -32,8 +37,8 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
     @Override
     public void run() {
         getStartInformation();
+        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables), new BankHandler(variables), new CombineItems(variables));
         initializeGui();
-        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }
@@ -102,28 +107,6 @@ public class Main extends Script implements Painting, MessageListening07, MouseP
             g.drawString("v" + variables.version, 185, 326);
 
         }
-    }
-
-    @Override
-    public void paintMouse(Graphics graphics, Point point, Point point1) {
-        graphics.setColor(Color.BLACK);
-        graphics.drawRect(Mouse.getPos().x - 13, Mouse.getPos().y - 13, 27, 27); // Square rectangle Stroke
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 1, 500); // Top y axis Line Stroke
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 1, 500); // Bottom y axis Line Stroke
-        graphics.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 1); // Right x axis line Stroke
-        graphics.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 1); // left x axis line Stroke
-        graphics.fillOval(Mouse.getPos().x - 3, Mouse.getPos().y - 3, 7, 7); // Center dot stroke
-        graphics.setColor(Constants.RED_COLOR);
-        graphics.drawRect(Mouse.getPos().x - 12, Mouse.getPos().y - 12, 25, 25); // Square rectangle
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 0, 500); // Top y axis Line
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 0, 500); // Bottom y axis Line
-        graphics.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 0); // Right x axis line
-        graphics.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 0); // left x axis line
-        graphics.fillOval(Mouse.getPos().x - 2, Mouse.getPos().y - 2, 5, 5); // Center dot
-    }
-
-    @Override
-    public void paintMouseSpline(Graphics graphics, ArrayList<Point> arrayList) {
     }
 
     @Override

@@ -1,10 +1,7 @@
-package scripts.SPXAIOCooker.api;
+package scripts.SPXAIOCooker.api.Framework;
 
-import scripts.SPXAIOCooker.Variables;
+import scripts.SPXAIOCooker.data.Variables;
 
-/**
- * Created by Sphiinx on 12/26/2015.
- */
 public abstract class Node {
 
     protected Variables vars;

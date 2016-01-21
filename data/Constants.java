@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker;
+package scripts.SPXAIOCooker.data;
 
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;

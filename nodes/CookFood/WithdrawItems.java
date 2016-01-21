@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.nodes;
+package scripts.SPXAIOCooker.nodes.CookFood;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -6,8 +6,8 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOCooker.Variables;
-import scripts.SPXAIOCooker.api.Node;
+import scripts.SPXAIOCooker.data.Variables;
+import scripts.SPXAIOCooker.api.Framework.Node;
 
 /**
  * Created by Sphiinx on 12/26/2015.
@@ -80,7 +80,7 @@ public class WithdrawItems extends Node {
 
     @Override
     public boolean validate() {
-        return Inventory.getCount(vars.foodId) <= 0;
+        return !vars.makeWine && Inventory.getCount(vars.foodId) <= 0;
     }
 
 }

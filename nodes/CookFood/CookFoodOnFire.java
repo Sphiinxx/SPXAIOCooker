@@ -1,11 +1,11 @@
-package scripts.SPXAIOCooker.nodes;
+package scripts.SPXAIOCooker.nodes.CookFood;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
-import scripts.SPXAIOCooker.Variables;
-import scripts.SPXAIOCooker.api.Node;
+import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.data.Variables;
 
 /**
  * Created by Sphiinx on 1/2/2016.
@@ -83,7 +83,7 @@ public class CookFoodOnFire extends Node {
     @Override
     public boolean validate() {
         vars.fire = Objects.findNearest(25, "Fire");
-        return vars.fire.length > 0 && vars.fire[0].isOnScreen() && Inventory.getCount(vars.foodId) > 0;
+        return !vars.makeWine && vars.fire.length > 0 && vars.fire[0].isOnScreen() && Inventory.getCount(vars.foodId) > 0;
     }
 
 }
