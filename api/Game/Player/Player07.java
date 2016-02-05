@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.Player;
+package scripts.SPXAIOCooker.API.Game.Player;
 
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Interfaces;

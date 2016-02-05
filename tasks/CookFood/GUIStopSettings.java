@@ -1,16 +1,16 @@
-package scripts.SPXAIOCooker.nodes.CookFood;
+package scripts.SPXAIOCooker.tasks.CookFood;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Login;
 import scripts.SPXAIOCooker.data.Variables;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-public class GUIStopSettings extends Node {
+public class GUIStopSettings extends Task {
 
     public GUIStopSettings(Variables v) {
         super(v);

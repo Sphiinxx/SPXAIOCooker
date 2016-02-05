@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.Inventory;
+package scripts.SPXAIOCooker.API.Game.Inventory;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -34,19 +34,19 @@ public class Inventory07 {
     }
 
     /**
-     * Checks if we have the item specified.
-     * @return True if we have the item, false otherwise.
-     * @param itemNames The names of the items to check.
-     * */
+    * Checks if we have the item specified.
+    * @return True if we have the item, false otherwise.
+    * @param itemNames The names of the items to check.
+    * */
     public static boolean hasItem(String... itemNames) {
         return Inventory.getCount(itemNames) > 0;
     }
 
     /**
-     * Checks if we have the item specified.
-     * @return True if we have the item; false otherwise.
-     * @param itemIDs The IDs of the items to check.
-     * */
+    * Checks if we have the item specified.
+    * @return True if we have the item; false otherwise.
+    * @param itemIDs The IDs of the items to check.
+    * */
     public static boolean hasItem(int... itemIDs) {
         return Inventory.getCount(itemIDs) > 0;
     }
@@ -197,3 +197,4 @@ public class Inventory07 {
     }
 
 }
+

@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.Walking;
+package scripts.SPXAIOCooker.API.Game.Walking;
 
 import org.tribot.api.General;
 import org.tribot.api2007.types.RSArea;

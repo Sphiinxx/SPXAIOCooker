@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.Combat;
+package scripts.SPXAIOCooker.API.Game.Combat;
 
 import org.tribot.api2007.Combat;
 import org.tribot.api2007.Game;

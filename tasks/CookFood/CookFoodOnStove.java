@@ -1,18 +1,16 @@
-package scripts.SPXAIOCooker.nodes.CookFood;
+package scripts.SPXAIOCooker.tasks.CookFood;
 
-import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
-import org.tribot.api2007.types.RSObject;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 import scripts.SPXAIOCooker.data.Variables;
 
 /**
  * Created by Sphiinx on 1/2/2016.
  */
-public class CookFoodOnStove extends Node {
+public class CookFoodOnStove extends Task {
 
     public CookFoodOnStove(Variables v) {
         super(v);
@@ -28,15 +26,20 @@ public class CookFoodOnStove extends Node {
 
     public void cookFoodOnStove() {
         if (vars.upText != null && vars.upText.contains("Use Raw") && Player.getAnimation() == -1) {
-            if (vars.stove[0].click()) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        General.sleep(100);
-                        return vars.cookingInterface != null && !vars.cookingInterface.isHidden(true);
-                    }
-                }, General.random(2800, 3000));
+            if (!Player.isMoving()) {
+                if (vars.stove[0].click()) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            General.sleep(100);
+                            General.println("Clicked");
+                            return vars.cookingInterface != null && !vars.cookingInterface.isHidden(true);
+                        }
+                    }, General.random(2800, 3000));
+                }
             }
+
+
         } else if (vars.cookingInterface != null && !vars.cookingInterface.isHidden(true)) {
             if (vars.cookingInterface.click("Cook All")) {
                 Timing.waitCondition(new Condition() {

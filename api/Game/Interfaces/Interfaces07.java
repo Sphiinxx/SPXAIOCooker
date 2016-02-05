@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.Interfaces;
+package scripts.SPXAIOCooker.API.Game.Interfaces;
 
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.types.RSInterface;

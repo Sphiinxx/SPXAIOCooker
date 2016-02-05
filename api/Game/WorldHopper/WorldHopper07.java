@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.WorldHopper;
+package scripts.SPXAIOCooker.API.Game.WorldHopper;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -17,9 +17,9 @@ import java.awt.*;
 public class WorldHopper07 {
 
     public static final int[] MEMBER_WORLDS = new int[] {
-            2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22, 25, 27, 28,
-            29, 30, 33, 34, 36, 37, 38, 41, 42, 43, 44, 45, 46, 49, 50, 51, 52, 53, 54,
-            57, 58, 59, 60, 61, 62, 65, 66, 67, 68, 69, 70, 73, 74, 75, 76, 77, 78
+            2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 22, 27, 28,
+            29, 30, 33, 34, 36, 38, 41, 42, 43, 44, 46, 50, 51, 53, 54, 58,
+            59, 60, 61, 62, 65, 66, 67, 68, 69, 70, 73, 74, 75, 76, 77, 78, 86
     };
 
     public static final int[] FREE_WORLDS = {
@@ -31,7 +31,7 @@ public class WorldHopper07 {
     };
 
     public static final int[] DEADMAN_WORLDS = {
-            19, 45, 52, 57, 60, 74
+            45, 52, 57
     };
 
     /**

@@ -1,17 +1,17 @@
-package scripts.SPXAIOCooker.nodes.MakeWine;
+package scripts.SPXAIOCooker.tasks.MakeWine;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSItem;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 import scripts.SPXAIOCooker.data.Variables;
 
 /**
  * Created by Sphiinx on 1/13/2016.
  */
-public class CombineItems extends Node {
+public class CombineItems extends Task {
 
     public CombineItems(Variables v) {
         super(v);

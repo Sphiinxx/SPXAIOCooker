@@ -1,12 +1,13 @@
-package scripts.SPXAIOCooker.api.Framework;
+package scripts.SPXAIOCooker.API.Framework;
+
 
 import scripts.SPXAIOCooker.data.Variables;
 
-public abstract class Node {
+public abstract class Task {
 
     protected Variables vars;
 
-    public Node(Variables v) {
+    public Task(Variables v) {
         vars = v;
     }
 

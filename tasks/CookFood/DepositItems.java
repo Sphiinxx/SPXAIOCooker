@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.nodes.CookFood;
+package scripts.SPXAIOCooker.tasks.CookFood;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -7,12 +7,12 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXAIOCooker.data.Variables;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-public class DepositItems extends Node {
+public class DepositItems extends Task {
 
     public DepositItems(Variables v) {
         super(v);

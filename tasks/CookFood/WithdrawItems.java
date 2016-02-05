@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.nodes.MakeWine;
+package scripts.SPXAIOCooker.tasks.CookFood;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -6,17 +6,15 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOCooker.api.Game.Banking.Banking07;
-import scripts.SPXAIOCooker.api.Game.Inventory.Inventory07;
 import scripts.SPXAIOCooker.data.Variables;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 
 /**
- * Created by Sphiinx on 1/13/2016.
+ * Created by Sphiinx on 12/26/2015.
  */
-public class BankHandler extends Node {
+public class WithdrawItems extends Task {
 
-    public BankHandler(Variables v) {
+    public WithdrawItems(Variables v) {
         super(v);
     }
 
@@ -34,35 +32,18 @@ public class BankHandler extends Node {
     }
 
     public void withdrawItems() {
-        if (Inventory07.getCount() > 0) {
-            if (Banking07.depositAll()) {
-                General.sleep(100);
+        if (Banking.find(vars.foodId).length > 0) {
+            if (Banking.withdraw(0, vars.foodId)) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
-                        return Inventory07.getCount() <= 0;
+                        General.sleep(100);
+                        return Inventory.getCount(vars.foodId) == 28;
                     }
                 }, General.random(750, 1000));
             }
-        }
-        if (Banking.find("Grapes").length > 0) {
-            if (Banking.find("Jug of water").length > 0) {
-                    if (Banking.withdraw(14, "Grapes") &&  Banking.withdraw(14, "Jug of water")) {
-                        Timing.waitCondition(new Condition() {
-                            @Override
-                            public boolean active() {
-                                General.sleep(100);
-                                return Inventory.isFull();
-                            }
-                        }, General.random(750, 1000));
-                }
-            } else {
-                General.println("We could not find any Jugs of water...");
-                General.println("Stopping Script...");
-                vars.stopScript = true;
-            }
         } else {
-            General.println("We could not find any grapes...");
+            General.println("We could not find the food requested...");
             General.println("Stopping Script...");
             vars.stopScript = true;
         }
@@ -99,7 +80,7 @@ public class BankHandler extends Node {
 
     @Override
     public boolean validate() {
-        return vars.makeWine && (Inventory.getCount("Grapes") == 0 || Inventory.getCount("Jug of water") == 0);
+        return !vars.makeWine && Inventory.getCount(vars.foodId) <= 0;
     }
 
 }

@@ -2,22 +2,19 @@ package scripts.SPXAIOCooker;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
-import org.tribot.api.input.Mouse;
 import org.tribot.api2007.Login;
 import org.tribot.api2007.Skills;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.MessageListening07;
-import org.tribot.script.interfaces.MousePainting;
-import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 import scripts.SPXAIOCooker.data.Constants;
 import scripts.SPXAIOCooker.data.Variables;
 import scripts.SPXAIOCooker.gui.GUI;
-import scripts.SPXAIOCooker.nodes.CookFood.*;
-import scripts.SPXAIOCooker.nodes.MakeWine.BankHandler;
-import scripts.SPXAIOCooker.nodes.MakeWine.CombineItems;
+import scripts.SPXAIOCooker.tasks.CookFood.*;
+import scripts.SPXAIOCooker.tasks.MakeWine.BankHandler;
+import scripts.SPXAIOCooker.tasks.MakeWine.CombineItems;
 
 
 import java.awt.*;
@@ -31,13 +28,13 @@ import java.util.Collections;
 public class Main extends Script implements Painting, MessageListening07 {
 
     private Variables variables = new Variables();
-    private ArrayList<Node> nodes = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     public GUI gui = new GUI(variables);
 
     @Override
     public void run() {
         getStartInformation();
-        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables), new BankHandler(variables), new CombineItems(variables));
+        Collections.addAll(tasks, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables), new BankHandler(variables), new CombineItems(variables));
         initializeGui();
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
@@ -45,10 +42,10 @@ public class Main extends Script implements Painting, MessageListening07 {
 
     private void loop(int min, int max) {
         while (!variables.stopScript) {
-            for (final Node node : nodes) {
-                if (node.validate()) {
-                    variables.status = node.toString();
-                    node.execute();
+            for (final Task task : tasks) {
+                if (task.validate()) {
+                    variables.status = task.toString();
+                    task.execute();
                     General.sleep(min, max);
                 }
             }
@@ -56,16 +53,13 @@ public class Main extends Script implements Painting, MessageListening07 {
     }
 
     public void initializeGui() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sleep(50);
-                    variables.status = "Initializing...";
-                    gui.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                sleep(50);
+                variables.status = "Initializing...";
+                gui.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         do

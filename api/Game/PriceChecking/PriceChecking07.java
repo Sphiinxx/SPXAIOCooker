@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.api.Game.PriceChecking;
+package scripts.SPXAIOCooker.API.Game.PriceChecking;
 
 import org.tribot.api.General;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class PriceChecking07 {
 
-    public static String[] userAgents = new String[] {
+    public static String[] userAgents = new String[]{
             "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.99 Safari/537.36",
             "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36",
             "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/533.1 (KHTML, like Gecko) Maxthon/3.0.8.2 Safari/533.1",
@@ -25,18 +25,20 @@ public class PriceChecking07 {
 
     /**
      * Attempts to get the OSBuddy price of the itemID specified.
+     *
      * @param itemID The ItemID of the item to get the price of.
      * @return The price of the itemID specified.
-     * */
+     */
     public static int getOSbuddyPrice(int itemID) {
         return handleResult("https://api.rsbuddy.com/grandExchange?a=guidePrice&i=", itemID, "overall");
     }
 
     /**
      * Attempts to get the Grand Exchange price of the itemID specified.
+     *
      * @param itemID The ItemID of the item to get the price of.
      * @return The price of the itemID specified.
-     * */
+     */
     public static int getGEPrice(int itemID) {
         return handleResult("http://services.runescape.com/m=itemdb_oldschool/api/catalogue/detail.json?item=", itemID, "price");
     }
@@ -46,7 +48,18 @@ public class PriceChecking07 {
         if (queryResult != null) {
             HashMap<String, String> results = JSONToMap(queryResult);
             if (results.containsKey(key)) {
-                return Integer.parseInt(results.get(key));
+
+                String price = results.get(key);
+                double multiplier = 1;
+
+                if (price.contains("m"))
+                    multiplier = 1000000D;
+                if (price.contains("k"))
+                    multiplier = 1000D;
+
+                price = price.replace("k", "").replace("m", "");
+
+                return (int) (Double.parseDouble(price) * multiplier);
             }
         }
         return -1;
@@ -70,8 +83,7 @@ public class PriceChecking07 {
             }
             in.close();
             return (content.isEmpty()) ? null : content;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -82,6 +94,9 @@ public class PriceChecking07 {
         String[] parts = json.replace("{", "").replace("}", "").replaceAll("\"", "").split(",");
         for (String part : parts) {
             String[] pieces = part.split(":");
+            if (pieces == null) continue;
+            if (pieces.length <= 1) continue;
+
             if (map.containsKey(pieces[0])) {
                 int c = 1;
                 while (map.containsKey(pieces[0] + c)) {
@@ -93,6 +108,4 @@ public class PriceChecking07 {
         }
         return map;
     }
-
 }
-

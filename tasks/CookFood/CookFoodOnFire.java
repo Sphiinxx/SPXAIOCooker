@@ -1,16 +1,16 @@
-package scripts.SPXAIOCooker.nodes.CookFood;
+package scripts.SPXAIOCooker.tasks.CookFood;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
-import scripts.SPXAIOCooker.api.Framework.Node;
+import scripts.SPXAIOCooker.API.Framework.Task;
 import scripts.SPXAIOCooker.data.Variables;
 
 /**
  * Created by Sphiinx on 1/2/2016.
  */
-public class CookFoodOnFire extends Node {
+public class CookFoodOnFire extends Task {
 
     public CookFoodOnFire(Variables v) {
         super(v);
