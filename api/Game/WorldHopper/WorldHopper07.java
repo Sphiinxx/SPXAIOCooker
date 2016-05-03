@@ -45,8 +45,8 @@ public class WorldHopper07 {
     }
 
     /**
-     * Switches worlds with the specified world.
-     * @return Player has switched worlds.
+     * Switches worldType with the specified world.
+     * @return Player has switched worldType.
      * */
     public static boolean switchWorld(int world){
         int realWorld = world % 100;

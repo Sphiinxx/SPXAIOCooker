@@ -6,6 +6,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
+import scripts.SPXAIOCooker.API.Game.Banking.Banking07;
 import scripts.SPXAIOCooker.data.Variables;
 import scripts.SPXAIOCooker.API.Framework.Task;
 
@@ -32,20 +33,22 @@ public class WithdrawItems extends Task {
     }
 
     public void withdrawItems() {
-        if (Banking.find(vars.foodId).length > 0) {
-            if (Banking.withdraw(0, vars.foodId)) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        General.sleep(100);
-                        return Inventory.getCount(vars.foodId) == 28;
-                    }
-                }, General.random(750, 1000));
+        if (Banking07.isBankItemsLoaded()) {
+            if (Banking.find(vars.foodId).length > 0) {
+                if (Banking.withdraw(0, vars.foodId)) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            General.sleep(100);
+                            return Inventory.getCount(vars.foodId) == 28;
+                        }
+                    }, General.random(750, 1000));
+                }
+            } else {
+                General.println("We could not find the food requested...");
+                General.println("Stopping Script...");
+                vars.stopScript = true;
             }
-        } else {
-            General.println("We could not find the food requested...");
-            General.println("Stopping Script...");
-            vars.stopScript = true;
         }
     }
 

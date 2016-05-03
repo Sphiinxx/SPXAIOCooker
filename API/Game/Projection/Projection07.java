@@ -244,9 +244,9 @@ public class Projection07 {
     }
 
     /**
-     * Attempts to draw the polygons of the given Area.
+     * Attempts to draw the polygons of the given area.
      *
-     * @param area The Area in which to draw.
+     * @param area The area in which to draw.
      * @param g    Graphics parameter.
      */
     public static void drawArea(final RSArea area, Graphics g) {
@@ -266,9 +266,9 @@ public class Projection07 {
     }
 
     /**
-     * Attempts to draw the polygons of the given Area.
+     * Attempts to draw the polygons of the given area.
      *
-     * @param area The Area in which to draw.
+     * @param area The area in which to draw.
      * @param g    Graphics parameter.
      */
     public static void drawMinimapArea(final RSArea area, Graphics g) {

@@ -7,10 +7,7 @@ import org.tribot.api2007.Login;
 import org.tribot.api2007.Skills;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
-import org.tribot.script.interfaces.MessageListening07;
-import org.tribot.script.interfaces.MousePainting;
-import org.tribot.script.interfaces.MouseSplinePainting;
-import org.tribot.script.interfaces.Painting;
+import org.tribot.script.interfaces.*;
 import scripts.SPXAIOCooker.API.Framework.Task;
 import scripts.SPXAIOCooker.data.Constants;
 import scripts.SPXAIOCooker.data.Variables;
@@ -28,7 +25,7 @@ import java.util.Collections;
  * Created by Sphiinx on 12/26/2015.
  */
 @ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 0.4)
-public class Main extends Script implements MessageListening07, Painting {
+public class Main extends Script implements MessageListening07, Painting, MousePainting, MouseSplinePainting, Ending {
 
     private Variables variables = new Variables();
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -82,10 +79,10 @@ public class Main extends Script implements MessageListening07, Painting {
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
             variables.currentLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
-            int gainedLvl = variables.currentLvl - variables.startLvl;
-            int gainedXP = Skills.getXP(Skills.SKILLS.COOKING) - variables.startXP;
-            long timeRan = System.currentTimeMillis() - Constants.START_TIME;
-            long xpPerHour = (long) (gainedXP * 3600000D / timeRan);
+            variables.gainedLvl = variables.currentLvl - variables.startLvl;
+            variables.gainedXP = Skills.getXP(Skills.SKILLS.COOKING) - variables.startXP;
+            variables.timeRan = System.currentTimeMillis() - Constants.START_TIME;
+            long xpPerHour = (long) (variables.gainedXP * 3600000D / variables.timeRan);
 
             g.setColor(Constants.BLACK_COLOR);
             g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
@@ -96,9 +93,9 @@ public class Main extends Script implements MessageListening07, Painting {
             g.setColor(Color.WHITE);
             g.drawString("[SPX] AIO Cooker", 18, 239);
             g.setFont(Constants.TEXT_FONT);
-            g.drawString("Runtime: " + Timing.msToString(timeRan), 14, 260);
+            g.drawString("Runtime: " + Timing.msToString(variables.timeRan), 14, 260);
             g.drawString("Exp P/H: " + xpPerHour, 14, 276);
-            g.drawString("Level: " + variables.currentLvl + " (+" + gainedLvl + ") " + gainedXP, 14, 293);
+            g.drawString("Level: " + variables.currentLvl + " (+" + variables.gainedLvl + ") " + variables.gainedXP, 14, 293);
             g.drawString("Successfully Cooked: " + variables.cookedCount, 14, 310);
             g.drawString("Status: " + variables.status, 14, 326);
             g.drawString("v" + variables.version, 185, 326);
@@ -106,7 +103,27 @@ public class Main extends Script implements MessageListening07, Painting {
         }
     }
 
+    @Override
+    public void paintMouse(Graphics g, Point point, Point point1) {
+        g.setColor(Constants.BLACK_COLOR);
+        g.drawRect(Mouse.getPos().x - 13, Mouse.getPos().y - 13, 27, 27); // Square rectangle Stroke
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 1, 500); // Top y axis Line Stroke
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 1, 500); // Bottom y axis Line Stroke
+        g.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 1); // Right x axis line Stroke
+        g.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 1); // left x axis line Stroke
+        g.fillOval(Mouse.getPos().x - 3, Mouse.getPos().y - 3, 7, 7); // Center dot stroke
+        g.setColor(Constants.RED_COLOR);
+        g.drawRect(Mouse.getPos().x - 12, Mouse.getPos().y - 12, 25, 25); // Square rectangle
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 0, 500); // Top y axis Line
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 0, 500); // Bottom y axis Line
+        g.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 0); // Right x axis line
+        g.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 0); // left x axis line
+        g.fillOval(Mouse.getPos().x - 2, Mouse.getPos().y - 2, 5, 5); // Center dot
+    }
 
+    @Override
+    public void paintMouseSpline(Graphics graphics, ArrayList<Point> arrayList) {
+    }
 
     @Override
     public void playerMessageReceived(String s, String s1) {
@@ -141,5 +158,11 @@ public class Main extends Script implements MessageListening07, Painting {
     public void duelRequestReceived(String s, String s1) {
 
     }
+
+    @Override
+    public void onEnd() {
+        DynamicSignature.sendSignatureData(variables.timeRan / 1000, variables.cookedCount, variables.gainedLvl, variables.gainedXP);
+    }
+
 }
 

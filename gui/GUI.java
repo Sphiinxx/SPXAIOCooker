@@ -172,6 +172,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
+        printGuiInformation();
         variables.levelToStop = Integer.parseInt(levelToStop.getValue().toString());
         variables.amountToStop = Integer.parseInt(amoutBeforeStopping.getValue().toString());
         variables.foodId = foodType.getText().toString();

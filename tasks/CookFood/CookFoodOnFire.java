@@ -5,7 +5,8 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import scripts.SPXAIOCooker.API.Framework.Task;
-import scripts.SPXAIOCooker.data.Variables;
+import scripts.SPXAIOCooker.data.*;
+import scripts.SPXAIOCooker.data.Constants;
 
 /**
  * Created by Sphiinx on 1/2/2016.

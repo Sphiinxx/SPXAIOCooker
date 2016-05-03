@@ -45,8 +45,9 @@ public class BankHandler extends Task {
                 }, General.random(750, 1000));
             }
         }
-        if (Banking.find("Grapes").length > 0) {
-            if (Banking.find("Jug of water").length > 0) {
+        if (Banking07.isBankItemsLoaded()) {
+            if (Banking.find("Grapes").length > 0) {
+                if (Banking.find("Jug of water").length > 0) {
                     if (Banking.withdraw(14, "Grapes") &&  Banking.withdraw(14, "Jug of water")) {
                         Timing.waitCondition(new Condition() {
                             @Override
@@ -55,16 +56,17 @@ public class BankHandler extends Task {
                                 return Inventory.isFull();
                             }
                         }, General.random(750, 1000));
+                    }
+                } else {
+                    General.println("We could not find any Jugs of water...");
+                    General.println("Stopping Script...");
+                    vars.stopScript = true;
                 }
             } else {
-                General.println("We could not find any Jugs of water...");
+                General.println("We could not find any grapes...");
                 General.println("Stopping Script...");
                 vars.stopScript = true;
             }
-        } else {
-            General.println("We could not find any grapes...");
-            General.println("Stopping Script...");
-            vars.stopScript = true;
         }
     }
 

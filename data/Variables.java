@@ -23,8 +23,11 @@ public class Variables {
     public int totalCookedCount = cookedCount + burnedCount;
     public int startLvl;
     public int startXP;
+    public int gainedXP;
+    public int gainedLvl;
     public final int cookingAnimation = 897;
     public long lastCookingTime = Timing.currentTimeMillis();
+    public long timeRan;
     public int currentLvl;
     public RSObject[] stove;
     public RSObject[] fire;
