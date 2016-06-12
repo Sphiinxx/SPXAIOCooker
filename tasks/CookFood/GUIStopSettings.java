@@ -4,27 +4,24 @@ import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Login;
-import scripts.SPXAIOCooker.data.Variables;
-import scripts.SPXAIOCooker.API.Framework.Task;
+import scripts.SPXAIOCooker.data.Vars;
+import scripts.SPXAIOCooker.framework.Task;
+
 
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-public class GUIStopSettings extends Task {
-
-    public GUIStopSettings(Variables v) {
-        super(v);
-    }
+public class GUIStopSettings implements Task {
 
     @Override
     public void execute() {
-        if (vars.totalCookedCount >= vars.amountToStop || vars.currentLvl >= vars.levelToStop) {
+        if (Vars.get().totalCookedCount >= Vars.get().amountToStop || Vars.get().currentLvl >= Vars.get().levelToStop) {
             if (Login.getLoginState() == Login.STATE.INGAME) {
                 logOut();
             } else {
                 General.println("You have reached the stopping point you requested...");
                 General.println("Stopping Script...");
-                vars.stopScript = true;
+                Vars.get().stopScript = true;
             }
         }
     }
@@ -43,7 +40,7 @@ public class GUIStopSettings extends Task {
 
     @Override
     public boolean validate() {
-        return vars.amountToStop != 0 || vars.levelToStop != 0;
+        return Vars.get().amountToStop != 0 || Vars.get().levelToStop != 0;
     }
 
 }

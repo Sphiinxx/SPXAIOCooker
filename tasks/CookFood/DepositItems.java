@@ -6,21 +6,17 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOCooker.data.Variables;
-import scripts.SPXAIOCooker.API.Framework.Task;
+import scripts.SPXAIOCooker.data.Vars;
+import scripts.SPXAIOCooker.framework.Task;
 
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-public class DepositItems extends Task {
-
-    public DepositItems(Variables v) {
-        super(v);
-    }
+public class DepositItems implements Task {
 
     @Override
     public void execute() {
-        vars.status = "Banking...";
+        Vars.get().status = "Banking...";
         if (Banking.isInBank()) {
             openBank();
         } else {
@@ -71,7 +67,7 @@ public class DepositItems extends Task {
 
     @Override
     public boolean validate() {
-            return !vars.makeWine && Inventory.isFull() && Inventory.getCount(vars.foodId) <= 0;
+            return !Vars.get().makeWine && Inventory.isFull() && Inventory.getCount(Vars.get().foodId) <= 0;
     }
 
 }

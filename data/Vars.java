@@ -4,11 +4,22 @@ import org.tribot.api.Timing;
 import org.tribot.api2007.types.RSInterfaceChild;
 import org.tribot.api2007.types.RSItem;
 import org.tribot.api2007.types.RSObject;
+import scripts.SPXAIOCooker.data.enums.Location;
 
 /**
  * Created by Sphiinx on 12/26/2015.
  */
-public class Variables {
+public class Vars {
+
+    public static Vars vars;
+
+    public static Vars get() {
+        return vars == null ? vars = new Vars() : vars;
+    }
+
+    public static void reset() {
+        vars = null;
+    }
 
     public boolean guiComplete;
     public boolean stopScript;

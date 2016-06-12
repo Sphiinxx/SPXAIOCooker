@@ -6,19 +6,15 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOCooker.API.Game.Banking.Banking07;
-import scripts.SPXAIOCooker.API.Game.Inventory.Inventory07;
-import scripts.SPXAIOCooker.data.Variables;
-import scripts.SPXAIOCooker.API.Framework.Task;
+import scripts.SPXAIOCooker.data.Vars;
+import scripts.SPXAIOCooker.framework.Task;
+import scripts.TribotAPI.game.banking.Banking07;
+import scripts.TribotAPI.game.inventory.Inventory07;
 
 /**
  * Created by Sphiinx on 1/13/2016.
  */
-public class BankHandler extends Task {
-
-    public BankHandler(Variables v) {
-        super(v);
-    }
+public class BankHandler implements Task {
 
     @Override
     public void execute() {
@@ -60,12 +56,12 @@ public class BankHandler extends Task {
                 } else {
                     General.println("We could not find any Jugs of water...");
                     General.println("Stopping Script...");
-                    vars.stopScript = true;
+                    Vars.get().stopScript = true;
                 }
             } else {
                 General.println("We could not find any grapes...");
                 General.println("Stopping Script...");
-                vars.stopScript = true;
+                Vars.get().stopScript = true;
             }
         }
     }
@@ -101,7 +97,7 @@ public class BankHandler extends Task {
 
     @Override
     public boolean validate() {
-        return vars.makeWine && (Inventory.getCount("Grapes") == 0 || Inventory.getCount("Jug of water") == 0);
+        return Vars.get().makeWine && (Inventory.getCount("Grapes") == 0 || Inventory.getCount("Jug of water") == 0);
     }
 
 }

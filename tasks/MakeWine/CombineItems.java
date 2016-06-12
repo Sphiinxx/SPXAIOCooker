@@ -5,17 +5,13 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSItem;
-import scripts.SPXAIOCooker.API.Framework.Task;
-import scripts.SPXAIOCooker.data.Variables;
+import scripts.SPXAIOCooker.data.Vars;
+import scripts.SPXAIOCooker.framework.Task;
 
 /**
  * Created by Sphiinx on 1/13/2016.
  */
-public class CombineItems extends Task {
-
-    public CombineItems(Variables v) {
-        super(v);
-    }
+public class CombineItems implements Task {
 
     @Override
     public void execute() {
@@ -41,22 +37,22 @@ public class CombineItems extends Task {
     public void combineItems() {
         RSItem[] grapes = Inventory.find("Grapes");
         RSItem[] jugs = Inventory.find("Jug of water");
-        vars.upText = Game.getUptext();
-        vars.cookingInterface = Interfaces.get(309, 3);
+        Vars.get().upText = Game.getUptext();
+        Vars.get().cookingInterface = Interfaces.get(309, 3);
 
-        if (vars.upText != null && vars.upText.contains("Use")) {
+        if (Vars.get().upText != null && Vars.get().upText.contains("Use")) {
             if (jugs[0].click("Use Grapes -> Jug of water")) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
                         General.sleep(100);
-                        return vars.cookingInterface != null && !vars.cookingInterface.isHidden(true);
+                        return Vars.get().cookingInterface != null && !Vars.get().cookingInterface.isHidden(true);
                     }
                 }, General.random(750, 1000));
             }
-        } else if (vars.cookingInterface != null && !vars.cookingInterface.isHidden(true)) {
+        } else if (Vars.get().cookingInterface != null && !Vars.get().cookingInterface.isHidden(true)) {
             final int CURRENT_LEVEL = Skills.getCurrentLevel(Skills.SKILLS.COOKING);
-            if (vars.cookingInterface.click("Make All")) {
+            if (Vars.get().cookingInterface.click("Make All")) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
@@ -71,25 +67,25 @@ public class CombineItems extends Task {
                     @Override
                     public boolean active() {
                         General.sleep(100);
-                        return vars.upText.contains("Use");
+                        return Vars.get().upText.contains("Use");
                     }
                 }, General.random(750, 1000));
             }
         }
     }
 
-    /*if (vars.upText != null && vars.upText.contains("Use")) {
-        if (vars.stove[0].click()) {
+    /*if (Vars.get().upText != null && Vars.get().upText.contains("Use")) {
+        if (Vars.get().stove[0].click()) {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
                     General.sleep(100);
-                    return vars.cookingInterface != null && !vars.cookingInterface.isHidden(true);
+                    return Vars.get().cookingInterface != null && !Vars.get().cookingInterface.isHidden(true);
                 }
             }, General.random(2500, 3000));
         }
-    } else if (vars.cookingInterface != null && !vars.cookingInterface.isHidden(true)) {
-        if (vars.cookingInterface.click("Make All")) {
+    } else if (Vars.get().cookingInterface != null && !Vars.get().cookingInterface.isHidden(true)) {
+        if (Vars.get().cookingInterface.click("Make All")) {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
@@ -99,12 +95,12 @@ public class CombineItems extends Task {
             }, General.random(750, 1000));
         }
     } else if (Player.getAnimation() == -1) {
-        if (vars.food[0].click("Use")) {
+        if (Vars.get().food[0].click("Use")) {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
                     General.sleep(100);
-                    return vars.upText.contains("Use Raw");
+                    return Vars.get().upText.contains("Use Raw");
                 }
             }, General.random(750, 1000));
         }
@@ -117,7 +113,7 @@ public class CombineItems extends Task {
 
     @Override
     public boolean validate() {
-        return vars.makeWine && Inventory.getCount("Grapes") > 0 && Inventory.getCount("Jug of water") > 0;
+        return Vars.get().makeWine && Inventory.getCount("Grapes") > 0 && Inventory.getCount("Jug of water") > 0;
     }
 
 }

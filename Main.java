@@ -8,9 +8,10 @@ import org.tribot.api2007.Skills;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.*;
-import scripts.SPXAIOCooker.API.Framework.Task;
 import scripts.SPXAIOCooker.data.Constants;
-import scripts.SPXAIOCooker.data.Variables;
+import scripts.SPXAIOCooker.data.Vars;
+import scripts.SPXAIOCooker.framework.Task;
+import scripts.SPXAIOCooker.framework.TaskManager;
 import scripts.SPXAIOCooker.gui.GUI;
 import scripts.SPXAIOCooker.tasks.CookFood.*;
 import scripts.SPXAIOCooker.tasks.MakeWine.BankHandler;
@@ -19,7 +20,6 @@ import scripts.SPXAIOCooker.tasks.MakeWine.CombineItems;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Sphiinx on 12/26/2015.
@@ -27,27 +27,33 @@ import java.util.Collections;
 @ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 0.4)
 public class Main extends Script implements MessageListening07, Painting, MousePainting, MouseSplinePainting, Ending {
 
-    private Variables variables = new Variables();
-    private ArrayList<Task> tasks = new ArrayList<>();
-    public GUI gui = new GUI(variables);
+
+    public GUI gui = new GUI();
+
+
+    private TaskManager taskManager = new TaskManager();
 
     @Override
     public void run() {
+        Vars.reset();
         getStartInformation();
-        Collections.addAll(tasks, new DepositItems(variables), new WithdrawItems(variables), new GUIStopSettings(variables), new CookFoodOnStove(variables), new CookFoodOnFire(variables), new WalkToStove(variables), new WalkToFire(variables), new BankHandler(variables), new CombineItems(variables));
         initializeGui();
-        variables.version = getClass().getAnnotation(ScriptManifest.class).version();
+        addCollection();
+        Vars.get().version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }
 
+    private void addCollection() {
+        taskManager.addTask(new DepositItems(), new WithdrawItems(), new GUIStopSettings(), new CookFoodOnStove(), new CookFoodOnFire(), new WalkToStove(), new WalkToFire(), new BankHandler(), new CombineItems());
+    }
+
     private void loop(int min, int max) {
-        while (!variables.stopScript) {
-            for (final Task task : tasks) {
-                if (task.validate()) {
-                    variables.status = task.toString();
-                    task.execute();
-                    General.sleep(min, max);
-                }
+        while (!Vars.get().stopScript) {
+            Task task = taskManager.getValidTask();
+            if (task != null) {
+                Vars.get().status = task.toString();
+                task.execute();
+                General.sleep(min, max);
             }
         }
     }
@@ -56,7 +62,7 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
         EventQueue.invokeLater(() -> {
             try {
                 sleep(50);
-                variables.status = "Initializing...";
+                Vars.get().status = "Initializing...";
                 gui.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,12 +70,12 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
         });
         do
             sleep(10);
-        while (!variables.guiComplete);
+        while (!Vars.get().guiComplete);
     }
 
     private void getStartInformation() {
-        variables.startXP = Skills.getXP(Skills.SKILLS.COOKING);
-        variables.startLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
+        Vars.get().startXP = Skills.getXP(Skills.SKILLS.COOKING);
+        Vars.get().startLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
     }
 
     public void onPaint(Graphics g1) {
@@ -78,11 +84,11 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
 
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            variables.currentLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
-            variables.gainedLvl = variables.currentLvl - variables.startLvl;
-            variables.gainedXP = Skills.getXP(Skills.SKILLS.COOKING) - variables.startXP;
-            variables.timeRan = System.currentTimeMillis() - Constants.START_TIME;
-            long xpPerHour = (long) (variables.gainedXP * 3600000D / variables.timeRan);
+            Vars.get().currentLvl = Skills.getActualLevel(Skills.SKILLS.COOKING);
+            Vars.get().gainedLvl = Vars.get().currentLvl - Vars.get().startLvl;
+            Vars.get().gainedXP = Skills.getXP(Skills.SKILLS.COOKING) - Vars.get().startXP;
+            Vars.get().timeRan = System.currentTimeMillis() - Constants.START_TIME;
+            long xpPerHour = (long) (Vars.get().gainedXP * 3600000D / Vars.get().timeRan);
 
             g.setColor(Constants.BLACK_COLOR);
             g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
@@ -93,12 +99,12 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
             g.setColor(Color.WHITE);
             g.drawString("[SPX] AIO Cooker", 18, 239);
             g.setFont(Constants.TEXT_FONT);
-            g.drawString("Runtime: " + Timing.msToString(variables.timeRan), 14, 260);
+            g.drawString("Runtime: " + Timing.msToString(Vars.get().timeRan), 14, 260);
             g.drawString("Exp P/H: " + xpPerHour, 14, 276);
-            g.drawString("Level: " + variables.currentLvl + " (+" + variables.gainedLvl + ") " + variables.gainedXP, 14, 293);
-            g.drawString("Successfully Cooked: " + variables.cookedCount, 14, 310);
-            g.drawString("Status: " + variables.status, 14, 326);
-            g.drawString("v" + variables.version, 185, 326);
+            g.drawString("Level: " + Vars.get().currentLvl + " (+" + Vars.get().gainedLvl + ") " + Vars.get().gainedXP, 14, 293);
+            g.drawString("Successfully Cooked: " + Vars.get().cookedCount, 14, 310);
+            g.drawString("Status: " + Vars.get().status, 14, 326);
+            g.drawString("v" + Vars.get().version, 185, 326);
 
         }
     }
@@ -147,10 +153,10 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
 
     @Override
     public void serverMessageReceived(String s) {
-        if (s.contains(new String("cook")) || s.contains(new String("You squeeze the grapes"))) {
-            variables.cookedCount++;
-        } else if (s.contains(new String("burn"))) {
-            variables.burnedCount++;
+        if (s.contains("cook") || s.contains("You squeeze the grapes")) {
+            Vars.get().cookedCount++;
+        } else if (s.contains("burn")) {
+            Vars.get().burnedCount++;
         }
     }
 
@@ -161,7 +167,7 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
 
     @Override
     public void onEnd() {
-        DynamicSignature.sendSignatureData(variables.timeRan / 1000, variables.cookedCount, variables.gainedLvl, variables.gainedXP);
+        DynamicSignature.sendSignatureData(Vars.get().timeRan / 1000, Vars.get().cookedCount, Vars.get().gainedLvl, Vars.get().gainedXP);
     }
 
 }

@@ -1,8 +1,8 @@
 package scripts.SPXAIOCooker.gui;
 
 import org.tribot.api.General;
-import scripts.SPXAIOCooker.data.Location;
-import scripts.SPXAIOCooker.data.Variables;
+import scripts.SPXAIOCooker.data.Vars;
+import scripts.SPXAIOCooker.data.enums.Location;
 
 import javax.swing.*;
 
@@ -10,13 +10,6 @@ import javax.swing.*;
  * Created by Sphiinx on 12/26/2015.
  */
 public class GUI extends javax.swing.JFrame {
-
-    private Variables variables;
-
-    public GUI(Variables variables) {
-        this.variables = variables;
-        initComponents();
-    }
 
     public GUI() {
         initComponents();
@@ -167,21 +160,21 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void printGuiInformation() {
-        General.println("Location: " + variables.location);
-        General.println("Cooking: " + variables.foodId);
+        General.println("Location: " + Vars.get().location);
+        General.println("Cooking: " + Vars.get().foodId);
     }
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
         printGuiInformation();
-        variables.levelToStop = Integer.parseInt(levelToStop.getValue().toString());
-        variables.amountToStop = Integer.parseInt(amoutBeforeStopping.getValue().toString());
-        variables.foodId = foodType.getText().toString();
+        Vars.get().levelToStop = Integer.parseInt(levelToStop.getValue().toString());
+        Vars.get().amountToStop = Integer.parseInt(amoutBeforeStopping.getValue().toString());
+        Vars.get().foodId = foodType.getText().toString();
         if (makeWine.isSelected()) {
-            variables.makeWine = true;
+            Vars.get().makeWine = true;
         } else {
-            variables.location = (Location)location.getSelectedItem();
+            Vars.get().location = (Location)location.getSelectedItem();
         }
-        variables.guiComplete = true;
+        Vars.get().guiComplete = true;
         setVisible(false);
     }
 
@@ -189,7 +182,7 @@ public class GUI extends javax.swing.JFrame {
 
     }
 
-    // Variables declaration - do not modify
+    // Vars.get().declaration - do not modify
     private javax.swing.ButtonGroup FoodPrayer;
     private javax.swing.JSpinner amoutBeforeStopping;
     private javax.swing.JTextField foodType;
@@ -205,6 +198,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JComboBox location;
     private javax.swing.JCheckBox makeWine;
     private javax.swing.JButton start;
-    // End of variables declaration
+    // End of Vars.get().declaration
 }
 

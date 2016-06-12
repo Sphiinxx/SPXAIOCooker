@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.data;
+package scripts.SPXAIOCooker.data.enums;
 
 import org.tribot.api2007.types.RSTile;
 
