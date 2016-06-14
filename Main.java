@@ -91,7 +91,7 @@ public class Main extends Script implements MessageListening07, Painting, MouseP
             long xpPerHour = (long) (Vars.get().gainedXP * 3600000D / Vars.get().timeRan);
 
             g.setColor(Constants.BLACK_COLOR);
-            g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
+            g.fillRoundRect(11, 220, 200, 110, 8, 8); // SPXMouse07 background
             g.setColor(Constants.RED_COLOR);
             g.drawRoundRect(9, 218, 202, 112, 8, 8); // Red outline
             g.fillRoundRect(13, 223, 194, 22, 8, 8); // Title background

@@ -8,7 +8,7 @@ import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXAIOCooker.data.Vars;
 import scripts.SPXAIOCooker.framework.Task;
-import scripts.TribotAPI.game.banking.Banking07;
+import TribotAPI.game.banking.Banking07;
 
 /**
  * Created by Sphiinx on 12/26/2015.
