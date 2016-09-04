@@ -1,12 +1,12 @@
-package scripts.SPXAIOCooker.tasks;
+package scripts.spxaiocooker.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSObject;
-import scripts.SPXAIOCooker.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.objects.Objects07;
+import scripts.spxaiocooker.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.objects.Objects07;
 
 /**
  * Created by Sphiinx on 7/28/2016.

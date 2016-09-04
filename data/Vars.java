@@ -1,6 +1,6 @@
-package scripts.SPXAIOCooker.data;
+package scripts.spxaiocooker.data;
 
-import scripts.SPXAIOCooker.data.enums.Location;
+import scripts.spxaiocooker.data.enums.Location;
 
 /**
  * Created by Sphiinx on 12/26/2015.

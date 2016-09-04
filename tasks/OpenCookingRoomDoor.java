@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker.tasks;
+package scripts.spxaiocooker.tasks;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -6,17 +6,19 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSObject;
-import scripts.SPXAIOCooker.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.objects.Objects07;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.spxaiocooker.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.objects.Objects07;
+import scripts.tribotapi.game.timing.Timing07;
+import scripts.tribotapi.util.Logging;
 
 /**
  * Created by Sphiinx on 7/28/2016.
  */
 public class OpenCookingRoomDoor implements Task {
 
-    private final int DOOR_CLOSED_ID = 24050;
+    private final int DOOR_CLOSED_ID_VARROCK = 11780;
+    private final int DOOR_CLOSED_ID_FALADOR = 24050;
 
     @Override
     public boolean validate() {
@@ -24,7 +26,7 @@ public class OpenCookingRoomDoor implements Task {
         if (door == null)
             return false;
 
-        return door.getID() == DOOR_CLOSED_ID;
+        return door.getID() == DOOR_CLOSED_ID_VARROCK || door.getID() == DOOR_CLOSED_ID_FALADOR;
     }
 
     @Override
@@ -37,13 +39,12 @@ public class OpenCookingRoomDoor implements Task {
         if (door == null)
             return;
 
-        if (door.getID() != DOOR_CLOSED_ID)
+        if (door.getID() != DOOR_CLOSED_ID_VARROCK && door.getID() != DOOR_CLOSED_ID_FALADOR)
             return;
 
         if (door.isOnScreen()) {
-            if (Clicking.click("Open", door)) {
-                Timing07.waitCondition(() -> door.getID() != DOOR_CLOSED_ID, General.random(1500, 2000));
-            }
+            if (Clicking.click("Open", door))
+                Timing07.waitCondition(() -> door.getID() != DOOR_CLOSED_ID_VARROCK || door.getID() != DOOR_CLOSED_ID_FALADOR, General.random(1500, 2000));
         } else {
             WebWalking.walkTo(door, new Condition() {
                 @Override

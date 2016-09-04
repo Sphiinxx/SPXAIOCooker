@@ -1,15 +1,15 @@
-package scripts.SPXAIOCooker.tasks;
+package scripts.spxaiocooker.tasks;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.*;
-import scripts.SPXAIOCooker.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.inventory.Inventory07;
-import scripts.TribotAPI.game.objects.Objects07;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.spxaiocooker.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.inventory.Inventory07;
+import scripts.tribotapi.game.objects.Objects07;
+import scripts.tribotapi.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 7/28/2016.
@@ -82,5 +82,6 @@ public class CookFood implements Task {
     public String toString() {
         return "Cooking food";
     }
+
 }
 

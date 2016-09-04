@@ -1,16 +1,15 @@
-package scripts.SPXAIOCooker;
+package scripts.spxaiocooker;
 
 import com.allatori.annotations.DoNotRename;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
-import scripts.SPXAIOCooker.data.Vars;
-import scripts.SPXAIOCooker.data.enums.Location;
-import scripts.TribotAPI.Client;
-import scripts.TribotAPI.SendReportData;
-import scripts.TribotAPI.gui.AbstractGUIController;
+import scripts.spxaiocooker.data.Vars;
+import scripts.spxaiocooker.data.enums.Location;
+import scripts.tribotapi.Client;
+import scripts.tribotapi.PostRequest;
+import scripts.tribotapi.gui.AbstractGUIController;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -22,8 +21,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import scripts.TribotAPI.util.Utility;
+import scripts.tribotapi.util.Utility;
 
+/**
+ * Created by Sphiinx on 7/28/2016.
+ */
+@DoNotRename
 public class GUIController extends AbstractGUIController {
 
     @FXML
@@ -118,13 +121,13 @@ public class GUIController extends AbstractGUIController {
         website_link.setOnAction((event -> Utility.openURL("http://spxscripts.com/")));
 
         send_report.setOnAction((event) -> {
-            if (SendReportData.LAST_SENT_TIME <= 0 || Timing.timeFromMark(SendReportData.LAST_SENT_TIME) > 60000) {
-                if (!SendReportData.sendReportData(Client.getManifest(Main.class).name(), Client.getManifest(Main.class).version(), bug_description.getText(), bug_stacktrace.getText(), bug_clientdebug.getText(), bug_botdebug.getText()))
+            if (PostRequest.LAST_SENT_TIME <= 0 || Timing.timeFromMark(PostRequest.LAST_SENT_TIME) > 60000) {
+                if (!PostRequest.sendReportData(Client.getManifest(Main.class).name(), Client.getManifest(Main.class).version(), bug_description.getText(), bug_stacktrace.getText(), bug_clientdebug.getText(), bug_botdebug.getText()))
                     report_sent.setText("UH OH! There seems to have been an error with your report!");
 
                 report_sent.setOpacity(1);
                 report_spam.setOpacity(0);
-                SendReportData.LAST_SENT_TIME = Timing.currentTimeMillis();
+                PostRequest.LAST_SENT_TIME = Timing.currentTimeMillis();
             } else {
                 report_sent.setOpacity(0);
                 report_spam.setOpacity(1);
@@ -134,9 +137,10 @@ public class GUIController extends AbstractGUIController {
         start.setOnAction((event) -> {
             Vars.get().food_names = food_names.getText().split(",");
             Vars.get().location = cooking_location.getSelectionModel().getSelectedItem();
+            Vars.get().is_making_wine = make_wines.isSelected();
             Vars.get().level_to_stop = Integer.parseInt(level_to_stop.getValue().toString());
             Vars.get().amount_to_cook = Integer.parseInt(amount_to_cook.getValue().toString());
-            Vars.get().is_making_wine = make_wines.isSelected();
+            General.println(Vars.get().level_to_stop);
             getGUI().close();
         });
     }

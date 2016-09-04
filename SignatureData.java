@@ -1,4 +1,4 @@
-package scripts.SPXAIOCooker;
+package scripts.spxaiocooker;
 
 import org.tribot.api.General;
 
