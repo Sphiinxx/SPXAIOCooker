@@ -55,11 +55,11 @@ public class GUIController extends AbstractGUIController {
 
     @FXML
     @DoNotRename
-    private Spinner<Integer> level_to_stop;
+    private Spinner<Double> level_to_stop;
 
     @FXML
     @DoNotRename
-    private Spinner<Integer> amount_to_cook;
+    private Spinner<Double> amount_to_cook;
 
     @FXML
     @DoNotRename
@@ -138,9 +138,8 @@ public class GUIController extends AbstractGUIController {
             Vars.get().food_names = food_names.getText().split(",");
             Vars.get().location = cooking_location.getSelectionModel().getSelectedItem();
             Vars.get().is_making_wine = make_wines.isSelected();
-            Vars.get().level_to_stop = Integer.parseInt(level_to_stop.getValue().toString());
-            Vars.get().amount_to_cook = Integer.parseInt(amount_to_cook.getValue().toString());
-            General.println(Vars.get().level_to_stop);
+            Vars.get().level_to_stop = Double.parseDouble(level_to_stop.getValue().toString());
+            Vars.get().amount_to_cook = Double.parseDouble(amount_to_cook.getValue().toString());
             getGUI().close();
         });
     }

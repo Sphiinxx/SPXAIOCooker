@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by Sphiinx on 12/26/2015.
  * Re-written by Sphiinx on 7/28/2016.
  */
-@ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 1.5)
+@ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 1.6)
 @DoNotRename
 public class Main extends AbstractScript implements Painting, EventBlockingOverride, MessageListening07, Ending {
 
@@ -48,7 +48,7 @@ public class Main extends AbstractScript implements Painting, EventBlockingOverr
         if (Vars.get().is_making_wine) {
          super.addTasks(new DepositItems(), new WithdrawItems(), new MakeWine());
         } else {
-            super.addTasks(new DepositItems(), new WithdrawItems(), new OpenCookingRoomDoor(), new WalkToCookingObject(), new CookFood());
+            super.addTasks(new StopSettings(), new DepositItems(), new WithdrawItems(), new OpenCookingRoomDoor(), new WalkToCookingObject(), new CookFood());
         }
     }
 

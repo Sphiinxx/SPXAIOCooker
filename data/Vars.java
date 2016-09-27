@@ -21,8 +21,9 @@ public class Vars {
     
     public String[] food_names;
 
-    public int amount_to_cook;
-    public int level_to_stop;
+    public double amount_to_cook;
+    public double level_to_stop;
+
     public int food_cooked;
     public int food_burned;
 
