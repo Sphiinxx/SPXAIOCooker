@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 @ScriptManifest(authors = "Sphiinx", category = "Cooking", name = "[SPX] AIO Cooker", version = 1.6)
 @DoNotRename
-public class Main extends AbstractScript implements Painting, EventBlockingOverride, MessageListening07, Ending {
+public class Main extends AbstractScript implements Painting, MousePainting, MouseSplinePainting, EventBlockingOverride, MessageListening07, Ending {
 
     @Override
     protected GUI getGUI() {

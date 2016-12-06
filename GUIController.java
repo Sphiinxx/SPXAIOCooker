@@ -3,10 +3,10 @@ package scripts.spxaiocooker;
 import com.allatori.annotations.DoNotRename;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
+import scripts.generalapi.PostRequest;
 import scripts.spxaiocooker.data.Vars;
 import scripts.spxaiocooker.data.enums.Location;
 import scripts.tribotapi.Client;
-import scripts.tribotapi.PostRequest;
 import scripts.tribotapi.gui.AbstractGUIController;
 
 import java.net.URL;
