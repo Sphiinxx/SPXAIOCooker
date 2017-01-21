@@ -1,4 +1,4 @@
-# SPXAIOCooker
+# SPXAIOCooker - THIS PROJECT IS DEPRECATED!
 
 ### Description
 SPXAIOCooker is a "script" written in Java for [TRiBoT](http://tribot.com). The "script" is ran on a client that compiles the code to perform
